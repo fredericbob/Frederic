@@ -1,0 +1,80 @@
+<div class="max-w-5xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl" *ngIf="prestation; else loading">
+  <!-- Titre -->
+  <h1 class="text-3xl font-bold text-gray-900 flex items-center space-x-2">
+    🛠️ <span>{{ prestation.nom }}</span>
+  </h1>
+  <p class="mt-2 text-gray-700 ml-6">{{ prestation.description }}</p>
+
+  <!-- Section main d'œuvre -->
+  <div class="mt-10">
+    <h2 class="text-2xl font-semibold text-gray-800">💼 Coût de la main d'œuvre</h2>
+    <p class="text-gray-700 ml-6">Cette prestation comprend un coût fixe de main d'œuvre :
+      <span class="font-bold">{{ prestation.prix_main_oeuvre }} Ar</span>
+    </p>
+  </div>
+
+  <!-- Tableau des tarifs -->
+  <div class="mt-10">
+    <h2 class="text-2xl font-semibold text-gray-800 flex items-center space-x-2">
+      💰 <span>Détails des tarifs par type de véhicule</span>
+    </h2>
+
+      <!-- Explication -->
+    <div class="">
+      <p class="text-gray-600 ml-6">
+        Le tableau ci-dessous détaille les pièces nécessaires pour chaque type de véhicule ainsi que leur coût.
+        Le prix total indiqué inclut la somme des pièces listées + le coût de la main d'œuvre.
+      </p>
+    </div>
+
+    <div class="overflow-x-auto mt-4">
+      <table class="min-w-full bg-white border border-gray-200 shadow-md rounded-lg overflow-hidden">
+        <!-- En-tête -->
+        <thead>
+          <tr class="bg-gray-100 text-gray-700 text-left">
+            <th class="px-4 py-3 border">🚗 Type de véhicule</th>
+            <th class="px-4 py-3 border text-center">🧾 Prix des pièces</th>
+            <th class="px-4 py-3 border text-center">💼 Main d'œuvre</th>
+            <th class="px-4 py-3 border text-center">💵 Prix total</th>
+          </tr>
+        </thead>
+
+        <!-- Corps -->
+        <tbody>
+          <tr *ngFor="let vehicule of prestation.prix_par_vehicule" class="hover:bg-gray-50">
+            <!-- Nom du véhicule -->
+            <td class="px-4 py-3 border font-medium text-gray-900">{{ vehicule.vehicule }}</td>
+
+            <!-- Somme des pièces -->
+            <td class="px-4 py-3 border text-center text-gray-800">
+              {{
+                getPrixPiecesTotal(vehicule.prixPieces)
+              }} Ar
+            </td>
+
+            <!-- Main d'œuvre -->
+            <td class="px-4 py-3 border text-center text-gray-800 ">
+              {{ prestation.prix_main_oeuvre }} Ar
+            </td>
+
+            <!-- Prix total -->
+            <td class="px-4 py-3 border text-center text-lg font-bold text-green-600">
+              {{ vehicule.prixTotal }} Ar
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Chargement -->
+<ng-template #loading>
+  <div class="flex justify-center items-center min-h-[200px]">
+    <svg class="animate-spin h-8 w-8 text-blue-600" viewBox="0 0 24 24" fill="none">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+    </svg>
+    <p class="ml-3 text-gray-500 text-lg">Chargement des données...</p>
+  </div>
+</ng-template>
