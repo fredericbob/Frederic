@@ -1,0 +1,14 @@
+<div class="max-w-4xl mx-auto p-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">🧩 Liste des pièces</h2>
+
+    <div *ngFor="let piece of pieces" class="bg-white p-4 mb-4 rounded-lg shadow flex justify-between items-center">
+      <div>
+        <h3 class="font-semibold text-lg text-gray-700">{{ piece.nom }}</h3>
+        <p class="text-sm text-gray-500">Stock total : {{ piece.totalStock }}</p>
+      </div>
+      <button (click)="goToDetails(piece._id)" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+        Voir détails
+      </button>
+
+    </div>
+  </div>

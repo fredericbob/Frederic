@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DevisService } from '../../../services/client/devis/devis.service';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({

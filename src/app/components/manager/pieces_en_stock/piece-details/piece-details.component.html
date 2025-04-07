@@ -1,0 +1,41 @@
+<div class="max-w-4xl mx-auto p-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Détails de la pièce</h2>
+
+    <div *ngFor="let compat of compatibilites" class="bg-gray-50 p-4 rounded-lg shadow mb-4">
+      <h3 class="text-lg font-semibold text-gray-700">
+        {{ compat.vehicule.marque }} {{ compat.vehicule.modele }} ({{ compat.vehicule.annee }})
+      </h3>
+      <p class="text-sm text-gray-600">Prix : {{ compat.prix }} Ar</p>
+      <p class="text-sm text-gray-600">Quantité : {{ compat.quantite_stock }}</p>
+
+      <div class="flex gap-2 mt-2">
+        <button (click)="openEditModal(compat)" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg">Modifier</button>
+        <button (click)="openAddStockModal(compat)" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg">Ajouter du stock</button>
+        <button (click)="deleteCompat(compat.vehicule._id)" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg">Supprimer</button>
+      </div>
+    </div>
+
+    <button (click)="openAddCompatibiliteModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg mt-4">
+      ➕ Ajouter une compatibilité
+    </button>
+
+    <!-- Modales -->
+    <app-add-compatibilite-modal
+      *ngIf="showAddCompatModal"
+      [pieceId]="pieceId"
+      (close)="refreshAfterModal($event)">
+    </app-add-compatibilite-modal>
+
+    <app-edit-compatibilite-modal
+      *ngIf="showEditModal"
+      [compatibilite]="selectedCompatibilite"
+      (close)="refreshAfterModal($event)">
+    </app-edit-compatibilite-modal>
+
+    <app-add-stock-modal
+      *ngIf="showAddStockModal"
+      [pieceId]="pieceId"
+      [vehiculeId]="selectedCompatibilite?.vehicule._id"
+      (close)="refreshAfterModal($event)">
+    </app-add-stock-modal>
+  </div>

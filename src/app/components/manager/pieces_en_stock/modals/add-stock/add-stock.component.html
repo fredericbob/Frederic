@@ -1,0 +1,13 @@
+<div class="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md">
+      <h2 class="text-xl font-bold mb-4">Ajouter du stock</h2>
+
+      <label class="block mb-2">Quantité à ajouter :</label>
+      <input [(ngModel)]=" quantiteToAdd" type="number" class="w-full border rounded px-2 py-1" />
+
+      <div class="flex justify-end space-x-3">
+        <button (click)="close.emit(false)" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg">Annuler</button>
+        <button (click)="addStock()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">Ajouter</button>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md">
+      <h2 class="text-xl font-bold mb-4">Ajouter une compatibilité</h2>
+
+      <label class="block mb-2">Véhicule :</label>
+      <select [(ngModel)]="selectedVehicule" class="w-full p-2 border rounded-lg mb-4">
+        <option value="" disabled selected>-- Choisir un véhicule --</option>
+        <option *ngFor="let v of vehicules" [value]="v._id">
+          {{ v.marque }} {{ v.modele }} ({{ v.annee }})
+        </option>
+      </select>
+
+      <label class="block mb-2">Prix :</label>
+      <input [(ngModel)]="prix" type="number" class="w-full p-2 border rounded-lg mb-4" />
+
+      <label class="block mb-2">Quantité en stock :</label>
+      <input [(ngModel)]="quantite_stock" type="number" class="w-full p-2 border rounded-lg mb-4" />
+
+      <label class="block mb-2">Seuil d'alerte :</label>
+      <input [(ngModel)]="seuil_alerte" type="number" class="w-full p-2 border rounded-lg mb-4" />
+
+      <div class="flex justify-end space-x-3">
+        <button (click)="closeModal()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg">Annuler</button>
+        <button (click)="addCompatibilite()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">Ajouter</button>
+      </div>
+    </div>
+  </div>

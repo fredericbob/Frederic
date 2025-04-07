@@ -25,6 +25,8 @@ import { AuthGuard } from './auth.guard';
 import { ConfirmationemailComponent } from './components/email/confirmationemail/confirmationemail.component';
 import { ResetPasswordComponent } from './components/email/reset-password/reset-password.component';
 import { DashboardComponent } from './components/manager/dashboard/dashboard.component';
+import { PieceListComponent } from './components/manager/pieces_en_stock/piece-list/piece-list.component';
+import { PieceDetailsComponent } from './components/manager/pieces_en_stock/piece-details/piece-details.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -78,6 +80,8 @@ export const routes: Routes = [
         // { path: 'prestations/add', component: FormPrestationComponent },
         // { path: 'prestations/edit/:id', component: FormPrestationComponent },
         { path: 'dashboard', component: DashboardComponent },
+        { path: 'liste-pieces', component: PieceListComponent },
+        { path: 'liste-pieces/pieces/:id', component: PieceDetailsComponent }
       ]
   },
   {
