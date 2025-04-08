@@ -23,6 +23,19 @@
             <option value="diesel">Diesel</option>
           </select>
         </div>
+        <div class="relative z-0">
+          <label for="type" class="text-lg text-gray-500">Type de véhicule</label>
+          <select
+            id="type"
+            [(ngModel)]="vehicule.type_vehicule"
+            name="type"
+            class="peer block w-full appearance-none border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+            required>
+            <option value="" disabled selected>Choisir le type de véhicule</option>
+            <option *ngFor="let type of typevehicule" [value]="type._id">{{ type.nom }}</option>
+            <!-- Ajoutez d'autres options si nécessaire -->
+          </select>
+        </div>
       </div>
       <button type="submit" [disabled]="vehiculeForm.invalid" class="mt-5 rounded-md bg-black px-10 py-2 text-white">Ajouter le véhicule</button>
     </form>

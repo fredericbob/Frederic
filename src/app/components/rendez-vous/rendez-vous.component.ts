@@ -8,16 +8,18 @@ import { ListprestationService } from '../../services/prestation/listprestation.
 @Component({
   selector: 'app-rendez-vous',
   standalone: true,
-  imports:  [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './rendez-vous.component.html',
   styleUrl: './rendez-vous.component.css'
 })
 export class RendezVousComponent {
 
+  isAddingVehicule: boolean = false;  // <-- Ajout de cette ligne
+
   rendezVous = {
     client_id: '',
     vehicule_id: {
-       modele: '',
+      modele: '',
       annee: null,
       marque: '',
       type: '',
@@ -32,10 +34,13 @@ export class RendezVousComponent {
   messageSuccess = '';
   messageError = '';
   typesVehicule: any[] = [];
+  searchQuery: string = '';
+  searchResults: any[] = [];
 
-  constructor(private rendezVousService: RendezvousService,private utilisateurservice:UtilisateurService,private prestationService:ListprestationService) {}
+  constructor(private rendezVousService: RendezvousService, private utilisateurservice: UtilisateurService, private prestationService: ListprestationService) {}
+
   ngOnInit() {
-    const clientId  = this.utilisateurservice.getUserIdFromToken();
+    const clientId = this.utilisateurservice.getUserIdFromToken();
     if (clientId) {
       this.loadTypesVehicule();
       this.rendezVous.client_id = clientId?.id;
@@ -48,6 +53,7 @@ export class RendezVousComponent {
   loadTypesVehicule() {
     this.rendezVousService.getTypesVehicule().subscribe(
       (data) => {
+        console.log("Réponse de l'API:", data);
         this.typesVehicule = data.typesVehicules;
       },
       (error) => {
@@ -56,10 +62,10 @@ export class RendezVousComponent {
     );
   }
 
-
   loadPrestations() {
     this.prestationService.getprestation().subscribe(
       (data) => {
+        console.log(data);
         this.prestationsList = data;
       },
       (error) => {
@@ -70,25 +76,40 @@ export class RendezVousComponent {
 
   togglePrestation(prestationId: string) {
     const index = this.rendezVous.prestations.findIndex(prestation => prestation.prestation_id === prestationId);
-
     if (index === -1) {
-      this.rendezVous.prestations.push({prestation_id:prestationId});
+      this.rendezVous.prestations.push({ prestation_id: prestationId });
     } else {
       this.rendezVous.prestations.splice(index, 1);
     }
-
     console.log('Prestations sélectionnées:', this.rendezVous.prestations);
   }
 
+  searchVehicule() {
+    if (this.rendezVous.vehicule_id.marque && this.rendezVous.vehicule_id.modele && this.rendezVous.vehicule_id.annee && this.rendezVous.vehicule_id.type_moteur && this.rendezVous.vehicule_id.type) {
+      this.rendezVousService.searchVehicule(
+        this.rendezVous.vehicule_id.marque,
+        this.rendezVous.vehicule_id.modele,
+        this.rendezVous.vehicule_id.annee,
+        this.rendezVous.vehicule_id.type_moteur,
+        this.rendezVous.vehicule_id.type
+      ).subscribe(
+        (results) => {
+          this.searchResults = results;
+        },
+        (error) => {
+          console.error('Erreur lors de la recherche du véhicule', error);
+        }
+      );
+    } else {
+      this.searchResults = [];
+    }
+  }
 
   onSubmit() {
-
     const dateRdv = new Date(this.rendezVous.date_rdv);
     const currentDate = new Date();
 
-
     if (dateRdv < currentDate) {
-
       this.messageError = 'La date du rendez-vous ne peut pas être dans le passé ❌';
       this.messageSuccess = '';
       return;
