@@ -7,7 +7,10 @@
     <div *ngIf="messageError" class="p-4 mb-4 text-red-800 bg-red-200 rounded-lg">
       {{ messageError }}
     </div>
+
     <h1 class="text-center text-4xl font-medium mb-6">Ajouter un Rendez-vous</h1>
+
+
     <form (ngSubmit)="onSubmit()" class="space-y-6">
       <div class="grid gap-6 sm:grid-cols-2">
         <div class="relative z-0">
@@ -32,7 +35,6 @@
             required>
             <option value="" disabled selected>Choisir le type de véhicule</option>
             <option *ngFor="let type of typesVehicule" [value]="type._id">{{ type.nom }}</option>
-            <!-- Ajoutez d'autres options si nécessaire -->
           </select>
         </div>
         <div class="relative z-0">
@@ -40,7 +42,7 @@
           <select
             id="type_moteur"
             [(ngModel)]="rendezVous.vehicule_id.type_moteur"
-            name="type"
+            name="type_moteur"
             class="peer block w-full appearance-none border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
             required>
             <option value="" disabled selected>Choisir le type de carburant</option>
@@ -49,6 +51,8 @@
           </select>
         </div>
       </div>
+
+      <!-- Date du rendez-vous -->
       <div class="relative z-0">
         <label for="date_rdv" class="text-lg text-gray-500">Date du rendez-vous</label>
         <input id="date_rdv" [(ngModel)]="rendezVous.date_rdv" name="date_rdv" type="datetime-local" class="peer block w-full appearance-none border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0" required />
@@ -72,8 +76,5 @@
 
       <button type="submit" class="mt-5 rounded-md bg-black px-10 py-2 text-white">Ajouter</button>
     </form>
-
-
   </div>
-
 </div>

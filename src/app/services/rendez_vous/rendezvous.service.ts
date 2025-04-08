@@ -35,7 +35,7 @@ export class RendezvousService {
 
 
   getTypesVehicule(): Observable<{ typesVehicules: any[] }> {
-    return this.http.get<{ typesVehicules: any[] }>(`${this.apitype}/options`);
+    return this.http.get<{ typesVehicules: any[] }>(`${this.apiUrl}/typevehicule`);
   }
 
 
@@ -72,5 +72,18 @@ assignMecanicienToRendezvous(id: string, mecanicienId: string) {
 updateStatus(id: string) {
   return this.http.put(`${this.apiUrl}/${id}/status`,{ headers: this.getHeaders() });
 }
+
+searchVehicule(
+  marque: string,
+  modele: string,
+  annee: number,
+  type_moteur: string,
+  type_vehicule: string
+): Observable<any[]> {
+  const url = `${this.apiUrl}/vehicules/search?marque=${marque}&modele=${modele}&annee=${annee}&type_moteur=${type_moteur}&type_vehicule=${type_vehicule}`;
+  return this.http.get<any[]>(url);
+}
+
+
 
 }

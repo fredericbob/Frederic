@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class VehiculeService {
   private apiUrl= `${environment.apiUrl}/vehicules`;
+
   constructor(private http: HttpClient) { }
 
   private getHeaders(): HttpHeaders {
@@ -18,13 +19,18 @@ export class VehiculeService {
     });
   }
   addvehicule(vehicule: any): Observable<any> {
-    
+
     return this.http.post(this.apiUrl, vehicule, { headers: this.getHeaders() });
   }
 
   getvehicule(): Observable<any> {
     return this.http.get(this.apiUrl, { headers: this.getHeaders() });
   }
+
+  getTypevehicule(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/typevehicule` );
+  }
+
 
   deletevehicule(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`, {headers: this.getHeaders() });

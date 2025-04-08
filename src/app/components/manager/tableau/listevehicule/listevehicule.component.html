@@ -19,6 +19,7 @@
             <th class="p-4 text-base font-normal text-slate-500 text-center">Modèle</th>
             <th class="p-4 text-base font-normal text-slate-500 text-center">Année</th>
             <th class="p-4 text-base font-normal text-slate-500 text-center">Type carburant</th>
+            <th class="p-4 text-base font-normal text-slate-500 text-center">Type vehivule</th>
             <th class="p-4 text-base font-normal text-slate-500 text-center">Actions</th>
 
           </tr>
@@ -29,6 +30,7 @@
             <td class="p-4 text-base text-slate-700 text-center">{{ vehicule.modele }}</td>
             <td class="p-4 text-base text-slate-700 text-center">{{ vehicule.annee }}</td>
             <td class="p-4 text-base text-slate-700 text-center">{{ vehicule.type_moteur }}</td>
+            <td class="p-4 text-base text-slate-700 text-center">{{ vehicule.type_vehicule?.nom }}</td>
             <td class="p-4 text-base text-slate-700 text-center flex justify-center space-x-2">
               <button class="bg-red-500 text-white px-3 py-1 rounded-md text-xs" (click)="deleteVehicule(vehicule._id)">Supprimer</button>
             </td>
